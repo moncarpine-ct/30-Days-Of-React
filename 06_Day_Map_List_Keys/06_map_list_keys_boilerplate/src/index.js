@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import NumbersGrid from './level2-1';
+import ColorsGrid from './level2-2';
 
 // importing data
 
@@ -39,8 +41,13 @@ const App = () => {
   return (
     <div className='app'>
       <div>
+        {/* 
         <h1>Countries List</h1>
         <Countries countries={countries} />
+        */}
+        
+        <NumbersGrid />
+        <ColorsGrid />
       </div>
     </div>
   )
