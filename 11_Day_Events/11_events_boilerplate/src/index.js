@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 
+import MovingText from './level2'
+
 class App extends Component {
   state = {
     firstName: '',
@@ -47,38 +49,40 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
-        <h1>Welcome to the World of Events</h1>
+      <MovingText />
 
-        <button onClick={this.handleClick}>Click Me</button>
-        <button onMouseMove={this.handleMouseMove}>Move mouse on me</button>
-        <p onCopy={this.handleCopy}>
-          Check copy right permission by copying this text
-        </p>
+      // <div style={{ position: 'absolute', left: '100px', top: '100px' }}>
+      //   <h1>Welcome to the World of Events</h1>
 
-        <p>{this.state.message}</p>
-        <label htmlFor=''> Test for onKeyPress Event: </label>
-        <input type='text' onKeyPress={this.handleKeyPress} />
-        <br />
+      //   <button onClick={this.handleClick}>Click Me</button>
+      //   <button onMouseMove={this.handleMouseMove}>Move mouse on me</button>
+      //   <p onCopy={this.handleCopy}>
+      //     Check copy right permission by copying this text
+      //   </p>
 
-        <label htmlFor=''> Test for onBlur Event: </label>
-        <input type='text' onBlur={this.handleBlur} />
+      //   <p>{this.state.message}</p>
+      //   <label htmlFor=''> Test for onKeyPress Event: </label>
+      //   <input type='text' onKeyPress={this.handleKeyPress} />
+      //   <br />
 
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor='firstName'>First Name: </label>
-            <input
-              onChange={this.handleChange}
-              name='firstName'
-              value={this.state.value}
-            />
-          </div>
+      //   <label htmlFor=''> Test for onBlur Event: </label>
+      //   <input type='text' onBlur={this.handleBlur} />
 
-          <div>
-            <input type='submit' value='Submit' />
-          </div>
-        </form>
-      </div>
+      //   <form onSubmit={this.handleSubmit}>
+      //     <div>
+      //       <label htmlFor='firstName'>First Name: </label>
+      //       <input
+      //         onChange={this.handleChange}
+      //         name='firstName'
+      //         value={this.state.value}
+      //       />
+      //     </div>
+
+      //     <div>
+      //       <input type='submit' value='Submit' />
+      //     </div>
+      //   </form>
+      // </div>
     )
   }
 }
