@@ -1,6 +1,9 @@
 // index.js
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import FrontEnd from './level2'
+
 // To get the root element from the HTML document
 import asabenehImage from './images/asabeneh.jpg'
 
@@ -111,6 +114,12 @@ const app = (
   </div>
 )
 
+const frontEnd = (
+  <div className='app'>
+    <FrontEnd />
+  </div>
+)
+
 const rootElement = document.getElementById('root')
 // we render the JSX element using the ReactDOM package
-ReactDOM.render(app, rootElement)
+ReactDOM.render(frontEnd, rootElement)
