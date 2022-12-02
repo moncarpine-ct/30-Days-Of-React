@@ -2,78 +2,70 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 
-const Country = ({
-  country: { name, capital, flag, languages, population, currency },
-}) => {
-  const formatedCapital =
-    capital.length > 0 ? (
-      <>
-        <span>Capital: </span>
-        {capital}
-      </>
-    ) : (
-      ''
-    )
-  const formatLanguage = languages.length > 1 ? `Languages` : `Language`
-  console.log(languages)
-  return (
-    <div className='country'>
-      <div className='country_flag'>
-        <img src={flag} alt={name} />
-      </div>
-      <h3 className='country_name'>{name.toUpperCase()}</h3>
-      <div class='country_text'>
-        <p>{formatedCapital}</p>
-        <p>
-          <span>{formatLanguage}: </span>
-          {languages.map((language) => language.name).join(', ')}
-        </p>
-        <p>
-          <span>Population: </span>
-          {population.toLocaleString()}
-        </p>
-        <p>
-          <span>Currency: </span>
-          {currency}
-        </p>
-      </div>
-    </div>
-  )
-}
-
 class App extends Component {
   state = {
     data: [],
+    count: 0,
   }
 
   componentDidMount() {
-    this.fetchCountryData()
+    this.fetchCatsData();
   }
-  fetchCountryData = async () => {
-    const url = 'https://restcountries.eu/rest/v2/all'
+
+  fetchCatsData = async () => {
+    const url = 'https://api.thecatapi.com/v1/breeds';
     try {
-      const response = await axios.get(url)
-      const data = await response.data
+      const response = await axios.get(url);
+      const data = await response.data;
       this.setState({
         data,
-      })
+        count: data.length,
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
+
+  getAverageFromRange = (range) => {
+    const minmax = range.split(' - ');
+    return ((Number(minmax[0]) + Number(minmax[1])) / 2);
+  };
+
+  getAverageFromSum = (sum) => {
+    const average = sum / this.state.count;
+    return average.toFixed(2);
+  };
+
+  averageWeight = () => {
+    if (this.state.count === 0) {
+      return 0;
+    }
+
+    const averageSum = this.state.data.reduce((average, cat) => {
+      return average + this.getAverageFromRange(cat.weight.metric);
+    }, 0);
+    return this.getAverageFromSum(averageSum);
+  };
+
+  averageAge = () => {
+    if (this.state.count === 0) {
+      return 0;
+    }
+
+    const averageSum = this.state.data.reduce((average, cat) => {
+      return average + this.getAverageFromRange(cat.life_span);
+    }, 0);
+    return this.getAverageFromSum(averageSum);
+  };
 
   render() {
     return (
       <div className='App'>
-        <h1>React Component Life Cycle</h1>
-        <h1>Calling API</h1>
+        <h1>30 Days of React</h1>
+        <h1>Cats Paradise</h1>
         <div>
-          <p>There are {this.state.data.length} countries in the api</p>
-          <div className='countries-wrapper'>
-            {this.state.data.map((country) => (
-              <Country country={country} />
-            ))}
-          </div>
+          <p>There are <b>{this.state.count}</b> cat breeds</p>
+          <p>On average a cat can weight about <b>{this.averageWeight()} KG</b> and live <b>{this.averageAge()} years</b>.</p>
         </div>
       </div>
     )
