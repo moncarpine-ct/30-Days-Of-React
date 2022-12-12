@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  line-height: 1.5;
+  font-family: 'Montserrat';
+  font-weight: 300;
+  color: black;
+}
+
+textarea {
+  width: 100%; 
+  resize: none; 
+  border: 0px;
+  background-color: floralwhite;
+  padding: 10px;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  padding: 10px;
+}
+
+.icon-button {
+  font-size: 24px;
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer; 
+  padding: 5px;
+}
+
+.add-button {
+  height: 40px;
+  padding: 10px;
+  background-color: deepskyblue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.container {
+  display: grid;
+  width: 600px;
+  height: 200px; 
+  gap: 5px; 
+  padding: 10px; 
+  border: 1px solid lightgray;
+}
+
+.add-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textarea-container {
+  display: grid;
+  justify-items: end;
+  grid-template-rows: 1fr auto;
+}
+
+.header {
+  display: grid; 
+  gap: 10px;
+  grid-template-columns: auto auto auto;
+  justify-content: start;
+  align-items: center;
+}
+
+.user-avatar {
+  font-size: 32px;
+}
+
+.user-name {
+  font-weight: bold;
+}
+
+.user-handle {
+  font-size: 14px;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+}
+
+.date {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.add-tweet {
+  grid-template-columns: 1fr 100px;
+}
+
+.edit-tweet {
+  grid-template-columns: '1fr';
+}
+
+.char-count {
+  font-size: 12px;
+  color: deepskyblue;
+  padding: 10px 5px 0px;
+}
