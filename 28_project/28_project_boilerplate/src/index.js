@@ -19,7 +19,7 @@ const IconButton = ({ icon, action }) => {
   );
 };
 
-const TweetView = ({ date, tweet, editTweet, deleteTweet }) => {
+const TweetView = ({ date, tweet, editTweet, deleteTweet, addComment }) => {
   return (
     <div className='container'>
       <div className='header'>
@@ -32,7 +32,7 @@ const TweetView = ({ date, tweet, editTweet, deleteTweet }) => {
       </div>
       <div className='footer'>
         <div><EditButton action={editTweet} /> <DeleteButton action={deleteTweet} /></div>
-        <div><CommentButton /><HeartButton /><RetweetButton /></div>
+        <div><CommentButton action={addComment} /><HeartButton action={() => {}} /><RetweetButton action={() => {}} /></div>
         <span className='date'>{date}</span>
       </div>
     </div>
@@ -52,8 +52,8 @@ const AddTweetView = () => {
         <textarea placeholder='Tweet about 30 Days of React...' onChange={updateCharCount} />
         <span className='char-count'>{charCount}</span>
       </div>
-      <div className='add-button-container'>
-        <button className='add-button'>Add Post</button>
+      <div className='button-container'>
+        <button className='button'>Add Post</button>
       </div>
     </div>
   );
@@ -61,11 +61,15 @@ const AddTweetView = () => {
 
 const EditTweetView = () => {
   return (
-    <div className='container edit-tweet'>
+    <div className='container add-tweet'>
       <div className='textarea-container'>
-        <textarea placeholder='Tweet about 30 Days of React...' onChange={{}} />
+        <textarea placeholder='Tweet about 30 Days of React...' onChange={() => {}} />
         <span className='char-count'>{250}</span>
       </div>
+      <div className='button-container'>
+          <button className='button'>Save</button>
+          <button className='button cancel-button'>Cancel</button>
+        </div>
     </div>
   );
 };
@@ -75,15 +79,15 @@ const App = (props) => {
   const formattedDate = date.toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric' })
 
   const [tweets, setTweets] = useState([
-    { id: 1, date: formattedDate, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
-    { id: 2, date: formattedDate, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
-    { id: 3, date: formattedDate, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
-    { id: 4, date: formattedDate, tweet: 'random tweet' },
+    { id: 1, date: formattedDate, isEditing: false, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
+    { id: 2, date: formattedDate, isEditing: false, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
+    { id: 3, date: formattedDate, isEditing: false, tweet: '30 Days Of React challenge has been started on 1 October and still ongoing. It will end the 30 October 2020. It was a real challenge for everyone. Students learned quite a lot of concepts. I hope this will help lots of students.' },
+    { id: 4, date: formattedDate, isEditing: false, tweet: 'random tweet' },
   ]);
 
-  const editTweet = (id, updatedTweet) => {
+  const editTweet = (id, isEditing) => {
     const index = tweets.findIndex(tweet => tweet.id === id);
-    tweets[index].tweet = updatedTweet;
+    tweets[index].isEditing = isEditing;
     setTweets([...tweets]);
   }
 
@@ -92,11 +96,20 @@ const App = (props) => {
     setTweets(updatedTweets);
   }
 
-  const tweetViews = tweets.map(({ id, date, tweet }, index) =>
-    <TweetView key={index} id={id} date={date} tweet={tweet} 
-              editTweet={() => editTweet(id, 'updated tweet')}
-              deleteTweet={() => deleteTweet(id)} />
-  );
+  const addComment = () => { console.log('comment'); };
+
+  const tweetViews = tweets.map(({ id, date, isEditing, tweet }, index) => {
+    if (isEditing) {
+      return <EditTweetView />;
+    } else {
+      return (
+        <TweetView key={index} id={id} date={date} tweet={tweet} 
+          editTweet={() => editTweet(id, true)}
+          deleteTweet={() => deleteTweet(id)}
+          addComment={() => addComment()} />
+      );
+    }
+  });
 
   return (
     <div className='main'>

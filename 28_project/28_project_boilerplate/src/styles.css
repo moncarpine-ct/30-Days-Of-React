@@ -33,7 +33,7 @@ textarea {
   padding: 5px;
 }
 
-.add-button {
+.button {
   height: 40px;
   padding: 10px;
   background-color: deepskyblue;
@@ -41,6 +41,10 @@ textarea {
   border: none;
   cursor: pointer;
   border-radius: 3px;
+}
+
+.cancel-button {
+  background-color: darkgray;
 }
 
 .container {
@@ -52,9 +56,10 @@ textarea {
   border: 1px solid lightgray;
 }
 
-.add-button-container {
-  display: flex;
-  align-items: center;
+.button-container {
+  display: grid;
+  gap: 5px;
+  align-content: center;
   justify-content: center;
 }
 
